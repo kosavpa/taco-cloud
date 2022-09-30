@@ -3,7 +3,7 @@ package tacos.security;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.http.HttpMethod;
+// import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -40,29 +40,28 @@ public class SecurityConfig{
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception{
         
         return http
-            //     .authorizeRequests()
-            //     .antMatchers("/design").hasRole("USER")
-            //     .antMatchers("/orders/**").hasRole("USER")
-            //     .antMatchers("/**").permitAll()
-            // .and()
-            //     .formLogin()
-            //     .loginPage("/login")
-            //     .defaultSuccessUrl("/design")
-            // .and()
-            //     .logout()
-            //     .logoutSuccessUrl("/")
-            // .and()
-            // .csrf().disable()
-
                 .authorizeRequests()
-                .antMatchers(HttpMethod.POST, "/api/ingredients")
-                .hasAuthority("SCOPE_writeIngredients")
-                .antMatchers(HttpMethod.DELETE, "/api//ingredients")
-                .hasAuthority("SCOPE_deleteIngredients")
+                .antMatchers("/design").hasRole("USER")
+                .antMatchers("/orders/**").hasRole("USER")
+                .antMatchers("/**").permitAll()
             .and()
-                .oauth2ResourceServer(oauth2 -> oauth2.jwt())
+                .formLogin()
+                .loginPage("/login")
+                .defaultSuccessUrl("/design")
+            .and()
                 .logout()
                 .logoutSuccessUrl("/")
+            // .and()
+            //     .authorizeRequests()
+            //     .antMatchers(HttpMethod.POST, "/api/ingredients")
+            //     .hasAuthority("SCOPE_writeIngredients")
+            //     .antMatchers(HttpMethod.DELETE, "/api/ingredients")
+            //     .hasAuthority("SCOPE_deleteIngredients")
+            //     .antMatchers("/**").access("permitAll")
+            // .and()
+            //     .oauth2ResourceServer(oauth2 -> oauth2.jwt())
+            //     .logout()
+            //     .logoutSuccessUrl("/")
             .and()
                 .csrf()
                     .ignoringAntMatchers("/h2-console/**", "/api/**")

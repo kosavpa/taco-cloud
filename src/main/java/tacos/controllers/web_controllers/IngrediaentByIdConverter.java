@@ -1,4 +1,4 @@
-package tacos.controllers;
+package tacos.controllers.web_controllers;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.convert.converter.Converter;

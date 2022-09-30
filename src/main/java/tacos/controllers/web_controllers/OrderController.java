@@ -1,4 +1,4 @@
-package tacos.controllers;
+package tacos.controllers.web_controllers;
 
 import javax.validation.Valid;
 

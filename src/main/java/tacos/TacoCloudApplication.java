@@ -31,6 +31,7 @@ public class TacoCloudApplication implements WebMvcConfigurer {
 	@Bean
 	public ApplicationRunner dataLoader(IngredientRepository repo, TacoRepository tacoRepo) {
 			return args -> {
+
 			Ingredient flourTortilla = new Ingredient(
 			"FLTO", "Flour Tortilla", Type.WRAP);
 			Ingredient cornTortilla = new Ingredient(
@@ -51,6 +52,7 @@ public class TacoCloudApplication implements WebMvcConfigurer {
 			"SLSA", "Salsa", Type.SAUCE);
 			Ingredient sourCream = new Ingredient(
 			"SRCR", "Sour Cream", Type.SAUCE);
+
 			repo.save(flourTortilla);
 			repo.save(cornTortilla);
 			repo.save(groundBeef);
@@ -61,18 +63,21 @@ public class TacoCloudApplication implements WebMvcConfigurer {
 			repo.save(jack);
 			repo.save(salsa);
 			repo.save(sourCream);
+
 			Taco taco1 = new Taco();
 			taco1.setName("Carnivore");
 			taco1.setIngredients(Arrays.asList(
 			flourTortilla, groundBeef, carnitas,
 			sourCream, salsa, cheddar));
 			tacoRepo.save(taco1);
+
 			Taco taco2 = new Taco();
 			taco2.setName("Bovine Bounty");
 			taco2.setIngredients(Arrays.asList(
 			cornTortilla, groundBeef, cheddar,
 			jack, sourCream));
 			tacoRepo.save(taco2);
+			
 			Taco taco3 = new Taco();
 			taco3.setName("Veg-Out");
 			taco3.setIngredients(Arrays.asList(

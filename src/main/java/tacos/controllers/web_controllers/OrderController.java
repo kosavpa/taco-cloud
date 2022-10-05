@@ -12,22 +12,23 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import lombok.extern.slf4j.Slf4j;
+import tacos.artemis.OrderMessagingService;
 import tacos.data.OrderRepository;
 import tacos.entity.TacoOrder;
 import tacos.entity.User;
 
-@Slf4j
 @Controller
 @RequestMapping("/orders")
 @SessionAttributes("tacoOrder")
 public class OrderController {
 
 	private OrderRepository orderRepo;
+	private OrderMessagingService messageService;
 	
 	@Autowired
-	public OrderController(OrderRepository orderRepo) {
+	public OrderController(OrderRepository orderRepo, OrderMessagingService messageService) {
 		this.orderRepo = orderRepo;
+		this.messageService = messageService;
 	}
 
 	@GetMapping("/current")
@@ -48,8 +49,9 @@ public class OrderController {
 		User user = (User)authentication.getPrincipal();
 		order.setUser(user);
 
-		orderRepo.save(order);	
-		log.info("Order submitted: {}", order);
+		orderRepo.save(order);
+		messageService.sendOrder(order);
+
 		sessionStatus.isComplete();
 		
 		return "redirect:/";

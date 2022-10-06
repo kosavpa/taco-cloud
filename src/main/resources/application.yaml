@@ -13,6 +13,7 @@ spring:
     
     artemis:
       mode: native
-      broker-url: 0.0.0.0:61616
+      host: 0.0.0.0
+      port: 61616
       user: owl
       password: root

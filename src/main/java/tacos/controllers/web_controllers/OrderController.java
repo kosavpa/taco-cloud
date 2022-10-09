@@ -12,7 +12,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.SessionAttributes;
 import org.springframework.web.bind.support.SessionStatus;
 
-import tacos.artemis.OrderMessagingService;
 import tacos.data.OrderRepository;
 import tacos.entity.TacoOrder;
 import tacos.entity.User;
@@ -23,12 +22,10 @@ import tacos.entity.User;
 public class OrderController {
 
 	private OrderRepository orderRepo;
-	private OrderMessagingService messageService;
 	
 	@Autowired
-	public OrderController(OrderRepository orderRepo, OrderMessagingService messageService) {
+	public OrderController(OrderRepository orderRepo) {
 		this.orderRepo = orderRepo;
-		this.messageService = messageService;
 	}
 
 	@GetMapping("/current")
@@ -50,7 +47,6 @@ public class OrderController {
 		order.setUser(user);
 
 		orderRepo.save(order);
-		messageService.sendOrder(order);
 
 		sessionStatus.isComplete();
 		
